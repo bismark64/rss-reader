@@ -4,10 +4,11 @@ h2
   
   = devise_error_messages!
 
+  h4 Avatar
   div.control-group
-    = f.label :avatar
     = image_tag resource.avatar_url(:thumb) if resource.avatar?
     = f.file_field :avatar
+  h4 My Data
   div.control-group
     = f.label :first_name
     = f.text_field :first_name
@@ -21,10 +22,15 @@ h2
   div.control-group
     = f.label :password_confirmation
     = f.password_field :password_confirmation
+  h4 Profile Type
+  div.control-group
+    div
+      i Basic: 10 channels, Medium: 20 channels, Premium: 100 channels
+    = f.select :profile_type, options_for_select(User.profile_type, f.object.profile_type), :prompt => true
   div
     = f.submit "Update"
 
-h3 Cancel my account
+h4 Cancel my account
 p
   | Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
 

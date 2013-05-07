@@ -1,6 +1,10 @@
 RssReader::Application.routes.draw do
-
+  
   devise_for :users, :controllers => { :omniauth_callbacks => :omniauth_callbacks, :registrations => 'registrations'}
+
+  resources :users, :only => :show do
+    resources :channels
+  end
 
   root :to => "home#index"
   # The priority is based upon order of creation:

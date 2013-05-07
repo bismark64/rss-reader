@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506214727) do
+ActiveRecord::Schema.define(:version => 20130507151610) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "guid"
+    t.string   "title"
+    t.string   "link"
+    t.text     "description"
+    t.datetime "pubDate"
+    t.integer  "channel_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "channels", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
@@ -37,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20130506214727) do
     t.string   "auth_token"
     t.string   "auth_secret"
     t.string   "avatar"
+    t.string   "profile_type"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

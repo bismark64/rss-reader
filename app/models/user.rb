@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-  :first_name, :last_name, :login, :auth_token, :auth_secret, :provider, :uid, :avatar
+  :first_name, :last_name, :login, :auth_token, :auth_secret, :provider, :uid, 
+  :avatar, :profile_type
 
   attr_accessor :current_password
 
@@ -20,8 +21,15 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-   ##### Twitter #####
+  has_many :channels, :dependent => :destroy
+
+   # Twitter #
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+    user = User.find_by_provider_and_uid(auth.provider, auth.uid)
+  end
+
+  # Google #
+  def self.find_for_google_oauth(auth, signed_in_resource=nil)
     user = User.find_by_provider_and_uid(auth.provider, auth.uid)
   end
 
@@ -46,9 +54,8 @@ class User < ActiveRecord::Base
     user
   end
 
-  ##### Google #####
-  def self.find_for_google_oauth(auth, signed_in_resource=nil)
-    user = User.find_by_provider_and_uid(auth.provider, auth.uid)
+  def self.profile_type
+    ['basic', 'medium', 'premium']
   end
 
   private

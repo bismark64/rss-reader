@@ -1,0 +1,8 @@
+h2 = @channel.name
+  / b Url:
+  / = @channel.url
+.articles-list
+  = render :partial => 'articles/article', :collection => @articles, :as => :article
+= link_to 'Edit', edit_user_channel_path(@user, @channel)
+| \
+| \#{link_to 'Back', user_channels_path(@user)}

@@ -38,9 +38,6 @@ module RssReader
         g.fixture_replacement :factory_girl, dir: 'spec/factories'
         g.view_specs false
         g.helper_specs false
-        g.stylesheets = false
-        g.javascripts = false
-        g.helper = false
     end
 
     # Configure the default encoding used in templates for Ruby 1.9.

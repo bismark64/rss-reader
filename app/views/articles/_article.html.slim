@@ -1,0 +1,5 @@
+.article
+  h4.title = link_to article.title, article.link, :target => '_blank'
+  i = time_ago_in_words article.pubDate
+  .description
+    = article.description.sanitize.html_safe
