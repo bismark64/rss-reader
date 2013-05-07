@@ -9,12 +9,16 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-  :first_name, :last_name, :login, :auth_token, :auth_secret, :provider, :uid
+  :first_name, :last_name, :login, :auth_token, :auth_secret, :provider, :uid, :avatar
 
-  validates :first_name, :last_name, :login, :email, :password, :presence => true
+  attr_accessor :current_password
+
+  validates :first_name, :last_name, :login, :email, :presence => true
   validates :first_name, :last_name, :login, :length => { :maximum => 50 }
   validates :email, :confirmation => true
   validates :email, :uniqueness => true
+
+  mount_uploader :avatar, AvatarUploader
 
    ##### Twitter #####
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
@@ -57,4 +61,5 @@ class User < ActiveRecord::Base
   def self.get_last_name(name)
     name.split(" ").last
   end
+
 end

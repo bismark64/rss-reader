@@ -25,7 +25,7 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem "rspec-rails"
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem "email_spec"
   gem "pickle"
   # database_cleaner is not required, but highly recommended
@@ -46,6 +46,8 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 
+gem 'rmagick', '2.13.2'
+gem 'carrierwave'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

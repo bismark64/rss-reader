@@ -1,4 +1,4 @@
-Given(/^I am not registered$/) do
+Given(/^that I am not registered$/) do
   User.delete_all
 end
 
@@ -26,6 +26,8 @@ Then(/^I should have (\d+) new user$/) do |ammount|
   User.count.should == ammount.to_i
 end
 
+#Oauth registration
+
 When(/^I press the "(.*?)" link and allow the required permissions$/) do |link|
   click_link(link)
 end
@@ -34,3 +36,16 @@ Then(/^I should be redirected to the new registration page$/) do
   visit new_user_registration_path
 end
 
+#User update
+Given(/^that I am logged in as "(.*?)" with password "(.*?)"$/) do |email, password|
+  FactoryGirl.create(:user)
+  visit new_user_session_path
+  fill_in "user_email", :with => email
+  fill_in "user_password", :with => password
+  click_button("Sign in")
+end
+
+#Delete Account
+Then(/^there shouldn't be registered users$/) do
+  User.count.should == 0
+end

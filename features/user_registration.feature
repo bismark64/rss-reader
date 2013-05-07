@@ -1,10 +1,13 @@
 Feature: User Registration
-	In order use the app
-	As a new guest
-	I want to be registered in the app
+	
+	The user registration includes two sides:
+	The form-based registration where the user has to manually fill out all the required fields.
+	The Oauth registration, where we get some user data via Twitter or Google servicies and then we request the user to check out its data.
+	In both cases we require activate the account through an email.
+
 
 	Background:
-		Given I am not registered
+		Given that I am not registered
 		When I go to user's registration page
 
 	Scenario Outline: User registration page
@@ -29,6 +32,8 @@ Feature: User Registration
 | ""              | "MyLastName"                                                                 | "myUsername" | "bismark64@gmail.com" | "mySecretPassword" | "mySecretPassword"         | First name can't be blank                        | receive no email | 0          |
 | "Pepe"          | "Argento"                                                                    | "Pepito2013" | "bismark64@gmail.com" | "aguentePepe598"   | "aguentePepe599"           | Password doesn't match confirmation              | receive no email | 0          |
 | "Pepe"          | "Argento Mario Ruben Pablo de los Castillos Fernández Prado de la Vera Cruz" | "Pepito2013" | "bismark64@gmail.com" | "aguentePepe598"   | "aguentePepe598"           | Last name is too long (maximum is 50 characters) | receive no email | 0          |
+
+
 
 	@oauth
 	Scenario Outline: OAuth2 authorization
