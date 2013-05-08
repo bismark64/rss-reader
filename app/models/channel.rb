@@ -12,22 +12,12 @@ class Channel < ActiveRecord::Base
     feed = Feedzirra::Feed.fetch_and_parse(feed_url)
     unless feed.nil?
       channel = Channel.create(:name     => feed.title,
-                                :url      => feed_url,
-                                :user_id  => user_id)
+                                :url     => feed_url,
+                                :user_id => user_id)
       channel.add_entries(feed.entries)
       channel
     end
   end
-
-  # def self.update_from_feed_continuously(feed_url, delay_interval = 5.minutes)
-  #   feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-  #   add_entries(feed.entries)
-  #   loop do
-  #     sleep delay_interval
-  #     feed = Feedzirra::Feed.update(feed)
-  #     add_entries(feed.new_entries) if feed.updated?
-  #   end
-  # end
 
   def add_entries(entries)
     entries.each do |entry|
@@ -40,5 +30,15 @@ class Channel < ActiveRecord::Base
         :guid         => entry.id,
         :channel_id   => self.id)
     end
+  end
+
+  def self.cron_update
+    all_feed = Feedzirra::Feed.fetch_and_parse(Channel.all_urls)
+    feed = Feedzirra::Feed.update(all_feed.values)
+    add_entries(feed.new_entries) if feed.updated?
+  end
+
+  def self.all_urls
+    self.find(:all, :select => [:id, :url])
   end
 end

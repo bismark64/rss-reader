@@ -3,3 +3,5 @@
   i = time_ago_in_words article.pubDate
   .description
     = article.description.sanitize.html_safe
+  .comment-section
+    = link_to "Comment", new_user_comment_path(@user, article_id: article.id), :class => 'ajax-comment', :remote => true

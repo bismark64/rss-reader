@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   has_many :channels, :dependent => :destroy
+  has_many :comments
 
    # Twitter #
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil)

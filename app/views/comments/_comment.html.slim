@@ -1,0 +1,6 @@
+.media
+  = link_to user_path(@user), :class => 'pull-left' do
+    = image_tag @user.avatar_url(:thumb) if @user.avatar?
+  .media-body
+    .media
+      = comment.body

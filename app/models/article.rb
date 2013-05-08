@@ -3,4 +3,6 @@ class Article < ActiveRecord::Base
 
   validates :title, :link, :description, :guid, :channel_id, :pubDate, :presence => true
   validates :guid, :uniqueness => true
+
+  has_many :comments, :dependent => :destroy
 end

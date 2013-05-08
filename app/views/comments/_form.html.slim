@@ -1,0 +1,17 @@
+= form_for [@user, @comment], :remote => true do |f|
+  - if @comment.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@comment.errors.count, "error")
+        | prohibited this comment from being saved:
+      ul
+        - @comment.errors.full_messages.each do |msg|
+          li= msg
+  .field
+    = f.text_area :body, :rows => 2
+  .field
+    = f.hidden_field :user_id
+  .field
+    = f.hidden_field :article_id
+  .actions
+    = f.submit
