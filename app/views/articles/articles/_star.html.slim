@@ -1,0 +1,3 @@
+.star
+  = link_to user_articles_star_path(@user, :article_id => article.id), :class => 'star-link', :method => :post, :remote => true do
+    = article.starred? ? image_tag('star-gold24.png') : image_tag('star-white24.png')

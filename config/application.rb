@@ -67,5 +67,7 @@ module RssReader
     config.assets.version = '1.0'
 
     Slim::Engine.set_default_options :tabsize => 2
+
+    config.exceptions_app = self.routes
   end
 end

@@ -1,4 +1,4 @@
-= form_for [@user, @comment], :remote => true do |f|
+= form_for [@user, :articles, @comment], :remote => true do |f|
   - if @comment.errors.any?
     #error_explanation
       h2

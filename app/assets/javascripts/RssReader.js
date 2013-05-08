@@ -8,6 +8,9 @@ RssReader.ajax.comments = RssReader.ajax.comments || {};
 
 RssReader.ajax.comments.new = RssReader.ajax.comments.new || {};
 
+RssReader.ajax.star_article = RssReader.ajax.star_article || {};
+
+
 RssReader.ajax.comments.new = function(){
   var links = $(".ajax-comment");
 
@@ -29,8 +32,24 @@ RssReader.ajax.comments.new = function(){
   });
 }
 
+RssReader.ajax.star_article = function(){
+  var starLink = $('.star-link');
+
+  starLink.each(function(){
+    var currentStar = $(this);
+
+    currentStar.on('ajax:success', function(evt, data, status, xhr){
+      currentStar.closest(".star-container").append(data);
+      currentStar.closest(".star").remove();
+
+      RssReader.ajax.star_article();
+    });
+  });
+}
+
 RssReader.init = function(){
   RssReader.ajax.comments.new();
+  RssReader.ajax.star_article();
 } 
 
 $(document).ready(RssReader.init);

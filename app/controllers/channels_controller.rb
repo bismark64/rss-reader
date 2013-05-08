@@ -16,7 +16,7 @@ class ChannelsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @channel = @user.channels.find(params[:id])
-    @articles = @channel.articles
+    @articles = @channel.articles.order('"pubDate" DESC')
 
     respond_to do |format|
       format.html # show.html.erb

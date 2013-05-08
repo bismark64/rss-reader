@@ -28,7 +28,8 @@ class Channel < ActiveRecord::Base
         :link         => entry.url,
         :pubDate      => entry.published,
         :guid         => entry.id,
-        :channel_id   => self.id)
+        :channel_id   => self.id,
+        :starred      => false)
     end
   end
 
