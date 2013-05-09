@@ -1,6 +1,10 @@
 h2 = @channel.name
   / b Url:
   / = @channel.url
+= form_tag user_channel_path, :method => :get do
+  p
+    = text_field_tag :search, params[:search]
+    = submit_tag "Search", :name => nil
 .articles-list
   = render :partial => 'articles/articles/article', :collection => @articles, :as => :article
 = link_to 'Edit', edit_user_channel_path(@user, @channel)

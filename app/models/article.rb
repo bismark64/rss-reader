@@ -8,6 +8,11 @@ class Article < ActiveRecord::Base
 
   scope :starred, lambda { || where(:starred => true)}
 
+  searchable do
+    text :title, :boost => 2
+    text :description
+  end
+
   def star_article
     self.toggle(:starred).save
   end

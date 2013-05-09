@@ -60,6 +60,9 @@ gem 'whenever', :require => false
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 
+#ActiveAdmin
+gem 'activeadmin'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

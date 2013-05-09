@@ -1,6 +1,12 @@
 RssReader::Application.routes.draw do
   
+  root :to => "home#index"
+  
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
   devise_for :users, :controllers => { :omniauth_callbacks => :omniauth_callbacks, :registrations => 'registrations'}
+  ActiveAdmin.routes(self)
 
   resources :users, :only => :show do
     resources :channels
@@ -10,8 +16,6 @@ RssReader::Application.routes.draw do
       get :starred, :controller => :articles
     end
   end
-
-  root :to => "home#index"
   
   match '/404', :to => 'errors#not_found'
   match '/422', :to => 'errors#server_error'

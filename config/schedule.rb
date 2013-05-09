@@ -22,3 +22,7 @@
 every 5.minutes do
   runner "Channel.cron_update"
 end
+
+every 1.day do
+  runner "LastFeed.to_user(User.all)"
+end

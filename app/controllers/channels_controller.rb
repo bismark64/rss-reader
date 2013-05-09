@@ -3,7 +3,15 @@ class ChannelsController < ApplicationController
   # GET /channels.json
   def index
     @user = User.find(params[:user_id])
-    @channels = @user.channels
+
+    if params[:search].present?
+      @search = @user.channels.search do
+        fulltext params[:search]
+      end
+      @channels = @search.results
+    else
+      @channels = @user.channels
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +24,15 @@ class ChannelsController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @channel = @user.channels.find(params[:id])
-    @articles = @channel.articles.order('"pubDate" DESC')
+
+    if params[:search].present?
+      @search = @channel.articles.search do
+        fulltext params[:search]
+      end
+      @articles = @search.results
+    else
+      @articles = @channel.articles.order('"pubDate" DESC')
+    end
 
     respond_to do |format|
       format.html # show.html.erb

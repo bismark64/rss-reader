@@ -8,6 +8,10 @@ class Channel < ActiveRecord::Base
 
   validates :name, :url, :user_id, :presence => true
 
+  searchable do
+    text :name
+  end
+
   def self.fetch_from_url(feed_url, user_id)
     feed = Feedzirra::Feed.fetch_and_parse(feed_url)
     unless feed.nil?
