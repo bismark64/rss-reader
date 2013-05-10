@@ -1,6 +1,6 @@
-= form_for [@user, @channel] do |f|
+= form_for @channel do |f|
   - if @channel.errors.any?
-    #error_explanation
+    #error_explanation.page-actions
       h2
         = pluralize(@channel.errors.count, "error")
         | prohibited this channel from being saved:
@@ -12,8 +12,9 @@
     .field
       = f.label :name
       = f.text_field :name
-  / .field
-  /   = f.label :url
-  /   = f.text_field :url
+  - unless @channel.id
+    .field
+      = f.label :url
+      = f.text_field :url
   .actions
     = f.submit nil, :class => 'btn btn-primary'

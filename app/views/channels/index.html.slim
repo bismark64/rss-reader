@@ -1,20 +1,22 @@
-h1 Listing channels
+h2.title
+  = t('navigation.titles.list', :model => Channel.model_name.human(:count => 2))
 
-= form_tag user_channels_path, :method => :get do
-  p
-    = text_field_tag :search, params[:search]
-    = submit_tag "Search", :name => nil
-table
-  tr
-    th Name
-    th
-    th
-    th
-  - @channels.each do |channel|
+.page-actions
+  = link_to new_channel_path, :class => 'btn btn-primary pull-right' do
+    i class="icon-plus-sign" 
+    = t('actions.new', :model => Channel.model_name.human)
+
+  = form_tag channels_path, :method => :get, :class => 'form-search' do
+    = text_field_tag :search, params[:search], :class => 'search-query'
+    = submit_tag t('actions.search'), :class => 'btn'
+
+table class="table table-hover table-bordered"
+  thead
     tr
-      td= channel.name
-      td= link_to 'Show', user_channel_path(@user, channel)
-      td= link_to 'Edit', edit_user_channel_path(@user, channel)
-      td= link_to 'Destroy', [@user, channel], method: :delete, :data => {confirm: 'Are you sure?' }
-br/
-= link_to 'New Channel', new_user_channel_path(@user)
+      th = Channel.human_attribute_name :name
+      th = t('actions.actions')
+  - @channels.each do |channel|
+      tr
+        td= link_to channel.name, channel_path(channel)
+        td= link_to 'Edit', edit_channel_path(channel)
+        td= link_to 'Destroy', channel, method: :delete, :data => {confirm: t("actions.delete.confirm")}

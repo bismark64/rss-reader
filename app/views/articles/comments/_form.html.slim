@@ -1,17 +1,17 @@
-= form_for [@user, :articles, @comment], :remote => true do |f|
+= form_for [:articles, @comment], :remote => true do |f|
   - if @comment.errors.any?
     #error_explanation
-      h2
+      h6
         = pluralize(@comment.errors.count, "error")
         | prohibited this comment from being saved:
       ul
         - @comment.errors.full_messages.each do |msg|
           li= msg
-  .field
-    = f.text_area :body, :rows => 2
-  .field
-    = f.hidden_field :user_id
-  .field
-    = f.hidden_field :article_id
-  .actions
-    = f.submit
+  .media
+    = image_tag @user.avatar_url(:ico), :class => 'pull-left'
+    .media-body
+      = f.text_area :body, :rows => 2
+      = f.hidden_field :user_id
+      = f.hidden_field :article_id
+      .actions
+        = f.submit nil, :class => 'btn btn-primary' 

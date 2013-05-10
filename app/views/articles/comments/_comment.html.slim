@@ -1,6 +1,8 @@
 .media
   = link_to user_path(@user), :class => 'pull-left' do
-    = image_tag @user.avatar_url(:thumb) if @user.avatar?
+    = image_tag @user.avatar_url(:ico) if @user.avatar?
   .media-body
-    .media
+    div class="help-block pull-right comment-date"
+      = time_ago_in_words comment.created_at
+    .body
       = comment.body

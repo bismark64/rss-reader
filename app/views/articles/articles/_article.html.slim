@@ -2,8 +2,10 @@
   h4.title = link_to article.title, article.link, :target => '_blank'
   .star-container
     = render :partial => 'articles/articles/star', :locals => {:article => article}
-  i = time_ago_in_words article.pubDate
   .description
-    = article.description.sanitize.html_safe
+    i.help-block = time_ago_in_words article.pubDate
+    .text
+      = article.description.sanitize.html_safe
   .comment-section
-    = link_to "Comment", new_user_articles_comment_path(@user, article_id: article.id), :class => 'ajax-comment', :remote => true
+    h5 = t('navigation.titles.comment_section')
+    = link_to t('actions.comment'), new_articles_comment_path(article_id: article.id), :class => 'ajax-comment btn', :remote => true

@@ -9,5 +9,48 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap_and_overrides
  *= require_tree .
  */
+
+#main-container{
+  margin-top: 50px;
+}
+.userthumb{
+  margin-top: 7px;
+}
+.centered{
+  text-align: center;
+}
+.right-align{
+  text-align: right;
+}
+.left-align{
+  text-align: left;
+}
+.page-actions{
+  margin-top: 10px;
+  background-color: #F5F5F5;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px 0px 5px;
+}
+.mbottom{
+  margin-bottom: 5px !important;
+}
+.table-bordered{
+  margin-top: 20px;
+}
+.inline{
+  display: inline;
+}
+label.inline{
+  margin-left: 5px;
+  margin-top: 5px;
+}
+#left-sidebar{
+  /*margin-top: 70px;*/
+}
+footer{
+  color: #aaa;
+}

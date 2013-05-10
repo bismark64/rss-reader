@@ -39,11 +39,17 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :large do
     process :resize_to_fill => [400, 400]
   end
+
   version :medium do
     process :resize_to_fill => [200, 200]
   end
+  
   version :thumb do
     process :resize_to_fill => [100, 100]
+  end  
+
+  version :ico do
+    process :resize_to_fill => [25, 25]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

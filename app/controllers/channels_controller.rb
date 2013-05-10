@@ -2,10 +2,10 @@ class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
   def index
-    @user = User.find(params[:user_id])
+    @user = current_user
 
     if params[:search].present?
-      @search = @user.channels.search do
+      @search = @user.channels.solr_search do
         fulltext params[:search]
       end
       @channels = @search.results
@@ -22,12 +22,13 @@ class ChannelsController < ApplicationController
   # GET /channels/1
   # GET /channels/1.json
   def show
-    @user = User.find(params[:user_id])
+    @user = current_user
     @channel = @user.channels.find(params[:id])
 
     if params[:search].present?
-      @search = @channel.articles.search do
+      @search = @channel.articles.solr_search do
         fulltext params[:search]
+        with(:channel_id, params[:id])
       end
       @articles = @search.results
     else
@@ -43,7 +44,7 @@ class ChannelsController < ApplicationController
   # GET /channels/new
   # GET /channels/new.json
   def new
-    @user = User.find(params[:user_id])
+    @user = current_user
     @channel = @user.channels.build
 
     respond_to do |format|
@@ -54,19 +55,19 @@ class ChannelsController < ApplicationController
 
   # GET /channels/1/edit
   def edit
-    @user = User.find(params[:user_id])
+    @user = current_user
     @channel = @user.channels.find(params[:id])
   end
 
   # POST /channels
   # POST /channels.json
   def create
-    @user = User.find(params[:user_id])
-    @channel = Channel.fetch_from_url(params[:channel][:url], params[:user_id])
-
+    @user = current_user
+    @channel = Channel.fetch_from_url(params[:channel][:url], current_user.id) unless params[:channel][:url].blank?
+      
     respond_to do |format|
       if @channel
-        format.html { redirect_to [@user, @channel], notice: 'Channel was successfully created.' }
+        format.html { redirect_to @channel, notice: 'Channel was successfully created.' }
         format.json { render json: @channel, status: :created, location: @channel }
       else
         format.html { 
@@ -81,12 +82,12 @@ class ChannelsController < ApplicationController
   # PUT /channels/1
   # PUT /channels/1.json
   def update
-    @user = User.find(params[:user_id])
+    @user = current_user
     @channel = @user.channels.find(params[:id])
 
     respond_to do |format|
       if @channel.update_attributes(params[:channel])
-        format.html { redirect_to [@user, @channel], notice: 'Channel was successfully updated.' }
+        format.html { redirect_to @channel, notice: 'Channel was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -98,12 +99,12 @@ class ChannelsController < ApplicationController
   # DELETE /channels/1
   # DELETE /channels/1.json
   def destroy
-    @user = User.find(params[:user_id])
+    @user = current_user
     @channel = @user.channels.find(params[:id])
     @channel.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_channels_url }
+      format.html { redirect_to channels_url }
       format.json { head :no_content }
     end
   end

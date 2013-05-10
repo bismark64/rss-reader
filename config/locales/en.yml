@@ -2,14 +2,75 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  devise:
-    titles:
-      registrations:
-        new: Sign Up
-        omniauth: "Register with:"
-  buttons:
-    register: Register
+  application:
+    name: Rss Reader
   links:
     omniauth:
       twitter: Twitter
       google: Google
+    user:
+      account: Account
+      sign_in: Sign In
+      sign_out: Sign Out
+      sign_up: Sign Up
+    main:
+      channels: My Channels
+      starred: Favorites Articles
+  navigation:
+    titles:
+      all: "All %{model}"
+      list: "My %{model}"
+      new: "New %{model}"
+      edit: "Edit %{model}"
+      comment_section: Comments
+      subscribe: Subscribe
+      starred_articles: Starred Articles
+      my_account: My Account
+      registrations:
+        new: Sign Up
+        omniauth: "Register with:"
+      user_account_pages:
+        sign_in: Sign in
+        resend_instruccions: Resend confirmation instructions
+      user_edit_form:
+        avatar: Avatar
+        profile_type: Profile Type
+        cancel_account: Cancel my account
+        my_data: My Data
+        help:
+          profile_type: "Basic: 10 channels, Medium: 20 channels, Premium: 100 channels"
+          password: (leave blank if you don't want to change it)
+  activerecord:
+    models:
+      channel:
+        one: Channel
+        other: Channels
+      article:
+        one: Article
+        other: Articles
+    attributes:
+      channel:
+        name: Name
+        url: Add Url
+  actions:
+    actions: Actions
+    all: "All %{model}"
+    back: Back
+    comment: Comment
+    edit: "Edit %{model}"
+    register: Register
+    new: "New %{model}"
+    search: Search
+    sign_in: Sign in
+    show: Show
+    update: Update
+    delete:
+      confirm: Are you sure?
+  messages:
+    error:
+      cannot_add_channel: "Your account doesn't allows you to add more channels, change your profile type in order to add more channels"
+    flash:
+      omniauth: Please check if your data is correct and press "Register" to continue
+    mailer:
+      last_feed:
+        title: Last Feed from Rss Reader

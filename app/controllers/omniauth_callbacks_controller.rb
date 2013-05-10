@@ -4,6 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.blank?
       session[:omniauth] = request.env["omniauth.auth"].except("extra")
+      flash[:info] = t('messages.flash.omniauth')
       redirect_to new_user_registration_url
     else
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
@@ -16,6 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.blank?
       session[:omniauth] = request.env["omniauth.auth"].except("extra")
+      flash[:info] = t('messages.flash.omniauth')
       redirect_to new_user_registration_url
     else
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated

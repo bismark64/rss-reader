@@ -1,3 +1,6 @@
-h1 Editing channel
+h2.title = t('navigation.titles.edit', :model => Channel.model_name.human)
+
+div class='page-actions right-align'
+  = link_to t('actions.show'), @channel
+
 = render 'form'
-= link_to 'Show', [@user, @channel]

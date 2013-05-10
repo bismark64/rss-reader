@@ -1,0 +1,14 @@
+table width="700" cellspacing="0" cellpadding="0" align="center"
+  thead
+    tr
+      td width="700"
+        h2 = t("messages.mailer.last_feed.title")
+  tbody
+    tr
+      - @last_feed.each do |article|
+        td
+          h4 = link_to article.title, article.link, :target => '_blank'
+          .description
+            i = time_ago_in_words article.pubDate
+            .text
+              = article.description.sanitize.html_safe

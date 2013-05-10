@@ -1,0 +1,5 @@
+.media
+  = image_tag @user.avatar_url(:medium), :class => 'thumbnail pull-left'
+  .media-body
+    h3 
+      = @user.login

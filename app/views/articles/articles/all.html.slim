@@ -1,0 +1,4 @@
+h2 = t('navigation.titles.all', :model => Article.model_name.human(:count => 2))
+
+.articles-list
+  = render :partial => 'articles/articles/article', :collection => @articles, :as => :article

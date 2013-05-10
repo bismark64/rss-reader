@@ -1,6 +1,11 @@
 class Articles::ArticlesController < ApplicationController
+  def all
+    @user = current_user
+    @articles = @user.articles
+  end
+
   def star
-    @user = User.find(params[:user_id])
+    @user = current_user
     @article = Article.find(params[:article_id])
     
     if @article.star_article
@@ -11,7 +16,7 @@ class Articles::ArticlesController < ApplicationController
   end
 
   def starred
-    @user = User.find(params[:user_id])
-    @articles = Article.starred.order('"pubDate" DESC')
+    @user = current_user
+    @articles = current_user.starred_articles
   end  
 end

@@ -1,12 +1,13 @@
-h2 = @channel.name
-  / b Url:
-  / = @channel.url
-= form_tag user_channel_path, :method => :get do
-  p
-    = text_field_tag :search, params[:search]
-    = submit_tag "Search", :name => nil
+h2.title = @channel.name
+
+.page-actions
+  div.pull-right
+    = link_to t('actions.edit', :model => Channel.model_name.human), edit_channel_path(@channel), :class => 'btn btn-primary mbottom'
+    div
+      = link_to t('actions.back'), channels_path, :class => 'pull-right'
+  = form_tag channel_path, :method => :get, :class => 'form-search' do
+    = text_field_tag :search, params[:search], :class => 'search-query'
+    = submit_tag t('actions.search'), :class => 'btn'
+
 .articles-list
   = render :partial => 'articles/articles/article', :collection => @articles, :as => :article
-= link_to 'Edit', edit_user_channel_path(@user, @channel)
-| \
-| \#{link_to 'Back', user_channels_path(@user)}

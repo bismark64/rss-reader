@@ -1,37 +1,29 @@
-h2 =t("devise.titles.registrations.new")
+.user-forms
+  h2 =t("navigation.titles.registrations.new")
 
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
 
-  = devise_error_messages!
+    = devise_error_messages!
 
-  div.control-group
-    = f.label :first_name
-    = f.text_field :first_name
-  div.control-group
-    = f.label :last_name
-    = f.text_field :last_name
-  div.control-group
-    = f.label :login
-    = f.text_field :login
-  div.control-group
-    = f.label :email
-    = f.email_field :email
-  div.control-group
-    = f.label :password
-    = f.password_field :password
-  div.control-group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  div.control-group
-    = f.submit t("buttons.register")
+    div.control-group
+      = f.label :first_name
+      = f.text_field :first_name
+    div.control-group
+      = f.label :last_name
+      = f.text_field :last_name
+    div.control-group
+      = f.label :login
+      = f.text_field :login
+    div.control-group
+      = f.label :email
+      = f.email_field :email
+    div.control-group
+      = f.label :password
+      = f.password_field :password
+    div.control-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+    div.control-group
+      = f.submit t("actions.register")
 
-= render "devise/shared/links"
-
-= content_for :right_sidebar do
-  h3 =t("devise.titles.registrations.omniauth")
-  ul.omniauth-providers
-    li.twitter
-      = link_to t("links.omniauth.twitter"), user_omniauth_authorize_path(:twitter)
-    li.google
-      = link_to t("links.omniauth.google"), user_omniauth_authorize_path(:google_oauth2)
-    /! /li
+  = render "devise/shared/links"

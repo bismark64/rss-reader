@@ -1,0 +1,19 @@
+#left-sidebar
+
+  #new-channel.well
+    h4 = t('navigations.titles.subscribe')
+    = render :partial => 'channels/form', :locals => { :'@channel' => current_user.channels.build}
+
+  ul class="nav nav-tabs nav-stacked"
+    li class=(current_page?(articles_all_path) ? 'active' : '')
+      = link_to articles_all_path do
+        i class="icon-th-list"
+        = t('navigation.titles.all', :model => Article.model_name.human(:count => 2))
+    li class=(current_page?(channels_path) ? 'active' : '')
+      = link_to channels_path do
+        i class="icon-user"
+        = t('links.main.channels')
+    li class=(current_page?(articles_starred_path) ? 'active' : '')
+      = link_to articles_starred_path do
+        i class="icon-star"
+        = t('links.main.starred')

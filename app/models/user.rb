@@ -59,6 +59,18 @@ class User < ActiveRecord::Base
     ['basic', 'medium', 'premium']
   end
 
+  def channel_count
+    self.channels.count
+  end
+
+  def articles
+    self.channels.includes(:articles).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
+  end
+
+  def starred_articles
+    self.channels.includes(:articles).where("articles.starred = ?", true).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
+  end
+
   private
 
   def self.get_first_name(name)

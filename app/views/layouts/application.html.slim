@@ -29,52 +29,46 @@ html lang="en"
     /! Size should be 32 x 32 pixels
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
   body.fixed
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse"
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          = link_to "Rss-reader", root_path, :class => :brand
-          .container.nav-collapse
-            ul.nav
-              li
-                = link_to "Sign Up", new_user_registration_path 
-              li
-                = link_to "Sign Out", destroy_user_session_path, :method => :delete
-              li
-                = link_to "Edit", edit_user_registration_path
-          /! /.nav-collapse
-    .container
+    = nav_bar :fixed => :top, :brand => t('application.name'), :brand_link => root_path do
+      - if current_user
+        = menu_group :pull => :right do
+          = link_to current_user, :class => 'pull-left userthumb' do
+            = image_tag current_user.avatar_url(:ico) if current_user.avatar?
+            strong= current_user.login
+          = drop_down "" do
+            = menu_item t("links.user.account"), edit_user_registration_path
+            = menu_item t("links.user.sign_out"), destroy_user_session_path, :method => :delete
+      - else
+        = menu_group :pull => :right do
+          = menu_item t("links.user.sign_in"), new_user_session_path
+          = menu_item t("links.user.sign_up"), new_user_registration_path
+    .container#main-container
       .row
-        - if content_for?(:left_sidebar)
-          .span3
-            .well.sidebar-nav
-              = yield(:left_sidebar)
-            /! /.well
-          /! /span
-        - if content_for?(:left_sidebar) || content_for?(:right_sidebar)
-          .span9
-            = bootstrap_flash
-            = yield
-        - elsif content_for?(:left_sidebar) && content_for?(:right_sidebar)
-          .span6
-            = bootstrap_flash
-            = yield
+        -if current_user
+          - if content_for?(:right_sidebar)
+            .span3
+              = render :partial => 'layouts/left_navbar'
+            .span6
+              = bootstrap_flash
+              = yield
+            .span3
+              = yield(:right_sidebar)
+              /! /.well
+            /! /span
+          - else
+            .span3
+              = render :partial => 'layouts/left_navbar'
+            .span9
+              = bootstrap_flash
+              = yield
         -else
           .span12
             = bootstrap_flash
             = yield
-        - if content_for?(:right_sidebar)
-          .span3
-            .well.sidebar-nav
-              = yield(:right_sidebar)
-            /! /.well
-          /! /span
       /! /row
-      footer
-        p &copy; Company 2013
+      footer.page-actions
+        p.centered
+          = "Copyright #{t('application.name')} #{Time.now.year}"
     /! /container
     /!
       | Javascripts

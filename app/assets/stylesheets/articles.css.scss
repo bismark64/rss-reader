@@ -1,0 +1,17 @@
+.article{
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  &:first-child{
+  }
+  .title{
+    float: left;
+  }
+  .star-container{
+    float: right;
+  }
+  .text,
+  .description{
+    clear: both;
+  }
+}

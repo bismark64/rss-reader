@@ -2,7 +2,7 @@ class Articles::CommentsController < ApplicationController
   # GET /comments/new
   # GET /comments/new.json
   def new
-    @user = User.find(params[:user_id])
+    @user = current_user
     @article = Article.find(params[:article_id])
     @comments = @article.comments
     @comment = Comment.new(user_id: params[:user_id], article_id: params[:article_id])
@@ -15,7 +15,7 @@ class Articles::CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @user = User.find(params[:user_id])
+    @user = current_user
     @comment = Comment.new(params[:comment])
 
     respond_to do |format|

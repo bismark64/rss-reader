@@ -6,11 +6,10 @@ class Article < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
 
-  scope :starred, lambda { || where(:starred => true)}
-
   searchable do
     text :title, :boost => 2
     text :description
+    integer :channel_id
   end
 
   def star_article
