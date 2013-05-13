@@ -1,3 +1,2 @@
 rvm use 1.9.3@rss_reader --create
-rvm_trust_rvmrcs_flag=
 rvm_trust_rvmrcs_flag=1
