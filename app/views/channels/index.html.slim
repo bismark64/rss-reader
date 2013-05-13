@@ -17,6 +17,6 @@ table class="table table-hover table-bordered"
       th = t('actions.actions')
   - @channels.each do |channel|
       tr
-        td= link_to channel.name, channel_path(channel)
+        td= link_to channel.name, channel_path(channel), :class => 'channel-name'
         td= link_to 'Edit', edit_channel_path(channel)
         td= link_to 'Destroy', channel, method: :delete, :data => {confirm: t("actions.delete.confirm")}

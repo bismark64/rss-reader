@@ -1,8 +1,9 @@
 #left-sidebar
 
-  #new-channel.well
-    h4 = t('navigations.titles.subscribe')
-    = render :partial => 'channels/form', :locals => { :'@channel' => current_user.channels.build}
+  -unless current_page?(new_channel_path)
+    #new-channel.well
+      h3 = t('navigations.titles.subscribe')
+      = render :partial => 'channels/form', :locals => { :'@channel' => current_user.channels.build}
 
   ul class="nav nav-tabs nav-stacked"
     li class=(current_page?(articles_all_path) ? 'active' : '')

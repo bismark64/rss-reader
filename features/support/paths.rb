@@ -16,6 +16,15 @@ module NavigationHelpers
 
     when /^user's edit page$/                    
       edit_user_registration_path
+
+    when /^channel's edit page$/                    
+      edit_channel_path(1)
+
+    when /^channel's index page$/                    
+      channels_path
+
+    when /^channel's show page$/                    
+      channel_path(1)
     # the following are examples using path_to_pickle
 
     when /^#{capture_model}(?:'s)? page$/                           # eg. the forum's page

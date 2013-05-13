@@ -2,8 +2,9 @@
 
 FactoryGirl.define do
   factory :channel do
-    name "MyString"
-    url "MyString"
-    user_id "MyString"
+    id 1
+    name "Test Channel"
+    url "http://www.theverge.com/rss/index.xml"
+    user_id 1
   end
 end

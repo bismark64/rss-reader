@@ -1,5 +1,5 @@
 .media
-  = image_tag @user.avatar_url(:medium), :class => 'thumbnail pull-left'
+  = image_tag @user.avatar_url(:medium), :class => 'thumbnail pull-left' if @user.avatar?
   .media-body
     h3 
       = @user.login

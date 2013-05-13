@@ -1,7 +1,7 @@
 = form_for @channel do |f|
   - if @channel.errors.any?
     #error_explanation.page-actions
-      h2
+      h3
         = pluralize(@channel.errors.count, "error")
         | prohibited this channel from being saved:
       ul

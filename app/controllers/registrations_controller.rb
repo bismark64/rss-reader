@@ -38,4 +38,11 @@ class RegistrationsController < Devise::RegistrationsController
     (user.email != params[:user][:email]) || !params[:user][:password].blank?
   end
 
+  def after_inactive_sign_up_path_for(resource)
+    new_user_session_path
+  end
+
+  def after_sign_out_path_for(resource)
+    new_user_session_path
+  end
 end

@@ -1,6 +1,6 @@
 Feature: User Registration
 	
-	The user registration includes two sides:
+	User registration includes two sides:
 	The form-based registration where the user has to manually fill out all the required fields.
 	The Oauth registration, where we get some user data via Twitter or Google servicies and then we request the user to check out its data.
 	In both cases we require activate the account through an email.
@@ -9,6 +9,8 @@ Feature: User Registration
 	Background:
 		Given that I am not registered
 		When I go to user's registration page
+
+
 
 	Scenario Outline: User registration page
 		And I fill in "user_first_name" field with <user_first_name>
@@ -22,10 +24,11 @@ Feature: User Registration
 		And <user_email> should <Receive Email?>
 		And I should have <User count> new user
 
+
 	Examples: Successful registrations
 | user_first_name | user_last_name | user_login   | user_email            | user_password      | user_password_confirmation | message                                                                                                                | Receive Email?   | User count |
 | "MyFirstName"   | "MyLastName"   | "myUsername" | "bismark64@gmail.com" | "mySecretPassword" | "mySecretPassword"         | A message with a confirmation link has been sent to your email address. Please open the link to activate your account. | receive an email | 1          |
-| "Pepe"          | "Argento"      | "Pepito2013" | "bismark64@gmail.com" | "aguentePepe598"   | "aguentePepe598"           | A message with a confirmation link has been sent to your email address. Please open the link to activate your account. | receive an email | 1          |
+| "Pepe"          | "Argento"      | "PepitoArgento" | "bismark64@gmail.com" | "aguentePepe598"   | "aguentePepe598"           | A message with a confirmation link has been sent to your email address. Please open the link to activate your account. | receive an email | 1          |
 
 		Examples: Failed registrations
 | user_first_name | user_last_name                                                               | user_login   | user_email            | user_password      | user_password_confirmation | message                                          | Receive Email?   | User count |
@@ -36,7 +39,7 @@ Feature: User Registration
 
 
 	@oauth
-	Scenario Outline: OAuth2 authorization
+	Scenario Outline: OAuth2 registration
 		And I press the "<Provider Link>" link and allow the required permissions
 		Then I should be redirected to the new registration page
 		When I fill in "user_email" field with "<user_email>"

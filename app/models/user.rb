@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-
   devise :omniauthable, :omniauth_providers => [:twitter, :google_oauth2]
 
   # Setup accessible (or protected) attributes for your model
@@ -18,13 +17,33 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :login, :length => { :maximum => 50 }
   validates :email, :confirmation => true
   validates :email, :uniqueness => true
+  validates_format_of :first_name, :last_name, :login, :with => /^[([-a-z]+)\s([-a-z]+)]+$/i, :message => 'must contain only letters.'
 
   mount_uploader :avatar, AvatarUploader
 
   has_many :channels, :dependent => :destroy
   has_many :comments
 
-   # Twitter #
+
+  def articles
+    self.channels.includes(:articles).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
+  end
+
+  def starred_articles
+    self.channels.includes(:articles).where("articles.starred = ?", true).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
+  end
+
+  def self.profile_type
+    ['basic', 'medium', 'premium']
+  end
+
+  def channel_count
+    self.channels.count
+  end
+
+
+  ### OmniAuth registration ###
+  # Twitter #
   def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
     user = User.find_by_provider_and_uid(auth.provider, auth.uid)
   end
@@ -53,22 +72,6 @@ class User < ActiveRecord::Base
                          :uid => auth.uid)
     end
     user
-  end
-
-  def self.profile_type
-    ['basic', 'medium', 'premium']
-  end
-
-  def channel_count
-    self.channels.count
-  end
-
-  def articles
-    self.channels.includes(:articles).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
-  end
-
-  def starred_articles
-    self.channels.includes(:articles).where("articles.starred = ?", true).order('"articles"."pubDate" DESC').map{|channel| channel.articles}.flatten
   end
 
   private

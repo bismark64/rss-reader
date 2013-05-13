@@ -37,8 +37,12 @@ Then(/^I should be redirected to the new registration page$/) do
 end
 
 #User update
+When(/^I select "(.*?)" in "(.*?)"$/) do |option, select_field|
+  select option, :from => select_field
+end
+
 Given(/^that I am logged in as "(.*?)" with password "(.*?)"$/) do |email, password|
-  FactoryGirl.create(:user)
+  @user = FactoryGirl.create(:user)
   visit new_user_session_path
   fill_in "user_email", :with => email
   fill_in "user_password", :with => password
@@ -48,4 +52,15 @@ end
 #Delete Account
 Then(/^there shouldn't be registered users$/) do
   User.count.should == 0
+end
+
+#Upload Avatar
+When(/^I attach a new (.+\.jpg)$/) do |image|
+  attach_file('user_avatar', "#{Rails.root}/features/fixtures/#{image}")
+  click_button('Update')
+end
+
+When(/^I attach a new (.+\.gif)$/) do |image|
+  attach_file('user_avatar', "#{Rails.root}/features/fixtures/#{image}")
+  click_button('Update')
 end

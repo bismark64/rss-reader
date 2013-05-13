@@ -12,6 +12,12 @@ class Channel < ActiveRecord::Base
     text :name
   end
 
+  def self.can_add_channel?(user)
+    allowed = user.profile_type == 'basic' ? 1 : user.profile_type == 'medium' ? 20 : 100
+    user.channel_count < allowed ? true : false
+  end
+
+  # Add a new channel
   def self.fetch_from_url(feed_url, user_id)
     feed = Feedzirra::Feed.fetch_and_parse(feed_url)
     unless feed.nil?
@@ -23,6 +29,16 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  # Cron update channels
+  def self.cron_update
+    Channel.all_urls.each do |channel|
+      feed = Feedzirra::Feed.fetch_and_parse(channel.url)
+      updated_feed = Feedzirra::Feed.update(feed)
+      channel.add_entries(updated_feed.new_entries) if updated_feed.updated?
+    end
+  end
+
+  #Add articles to a channel
   def add_entries(entries)
     entries.each do |entry|
       description = entry.content || entry.summary
@@ -37,20 +53,10 @@ class Channel < ActiveRecord::Base
     end
   end
 
-  def self.cron_update
-    Channel.all_urls.each do |channel|
-      feed = Feedzirra::Feed.fetch_and_parse(channel.url)
-      updated_feed = Feedzirra::Feed.update(feed)
-      channel.add_entries(updated_feed.new_entries) if updated_feed.updated?
-    end
-  end
+  private
 
   def self.all_urls
     self.find(:all, :select => [:id, :url])
   end
 
-  def self.can_add_channel?(user)
-    allowed = user.profile_type == 'basic' ? 10 : user.profile_type == 'medium' ? 20 : 100
-    user.channel_count < allowed ? true : false
-  end
 end

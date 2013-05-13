@@ -1,45 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'pg'
-
 gem 'devise'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
-  gem "less-rails"
-	gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-
-  gem 'uglifier', '>= 1.0.3'
-end
-
-group :test do
-  gem 'cucumber-rails', :require => false
-  gem "rspec-rails"
-  gem 'factory_girl_rails'
-  gem "email_spec"
-  gem "pickle"
-  # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
-end
-
-group :development do
-  gem "rspec-rails"
-  gem "thin"
-end
-
 gem 'jquery-rails'
-
 gem 'slim'
+gem 'nokogiri', '~> 1.5.9'
 
 # Omniauth gems
 gem 'omniauth'
@@ -63,17 +29,36 @@ gem 'sunspot_solr'
 #ActiveAdmin
 gem 'activeadmin'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+  gem 'therubyracer', :platforms => :ruby
+  gem "less-rails"
+	gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+  gem 'uglifier', '>= 1.0.3'
+end
 
-# Deploy with Capistrano
-# gem 'capistrano'
+group :test do
+  gem 'cucumber-rails', '~> 1.3.1', :require => false
+  gem "rspec-rails"
+  gem 'factory_girl_rails'
+  gem "email_spec"
+  gem "pickle"
+  gem 'database_cleaner'
+  gem "sunspot_test"
+  gem "selenium-webdriver"
+end
 
-# To use debugger
-# gem 'debugger'
+group :development do
+  gem "rspec-rails"
+  gem "thin"
+  gem "capistrano"
+  gem "capistrano-ext"
+  gem "dark-capistrano-recipes"
+end
+
+group :production do
+  gem 'unicorn'
+end

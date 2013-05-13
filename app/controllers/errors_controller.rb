@@ -1,11 +1,13 @@
 class ErrorsController < ApplicationController
   def not_found
-    flash[:error] = "Not Found"
-    render :status => 404, :formats => [:html]
+    flash.keep[:error] = "The page that you are looking for doesn't exist"
+    # render :status => 404, :formats => [:html]
+    redirect_to root_url
   end
 
   def server_error
-    flash[:error] = "Murio Server"
-    render :status => 500, :formats => [:html]
+    flash.keep[:error] = "There was an internal error"
+    # render :status => 500, :formats => [:html]
+    redirect_to root_url
   end
 end
