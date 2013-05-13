@@ -7,6 +7,12 @@ Notes:
 I have used Cucumber to make BDD, but it was my first time.. 
 So please be patient if you see not too good code in the test..
 
+Before runing the rails server in development, don't forget to start the Solr instance:
+
+    bundle exec rake sunspot:solr:start 
+
+then you can start the server as usual.
+
 
 Capistrano instructions:
 ------------------------

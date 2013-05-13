@@ -27,7 +27,7 @@ html lang="en"
     = favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     /! For all other devices
     /! Size should be 32 x 32 pixels
-    = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
+    = favicon_link_tag '/favicon.ico', :rel => 'shortcut icon'
   body.fixed
     = nav_bar :fixed => :top, :brand => t('application.name'), :brand_link => root_path do
       - if current_user
