@@ -20,7 +20,7 @@ class Channel < ActiveRecord::Base
   # Add a new channel
   def self.fetch_from_url(feed_url, user_id)
     feed = Feedzirra::Feed.fetch_and_parse(feed_url)
-    unless feed.class == Fixnum
+    unless feed.nil? || feed.class == Fixnum
       channel = Channel.create(:name     => feed.title,
                                 :url     => feed_url,
                                 :user_id => user_id)
