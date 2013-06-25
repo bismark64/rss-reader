@@ -1,23 +1,33 @@
-Rss Reader
+Feed Reader
 ==========
+
+Simple Feed reader Rails app. 
+
+It parses valid RSS/Atom feed, and shows them like Google Reader.
+
+I used this gems:
+
+    Rails = 3.2.9   
+    Ruby = 1.9.3  
+    RVM     
+    PostgreSQL 
+    Slim
+    Twitter Bootstrap
+    Devise
+    Oauth
+    Carrierwave
+    Whenever
+    Sunspot
+    ActiveAdmin
+    Cucumber
+    Rspec
+    Capistrano
+    Unicorn
 
 Notes:
 ------
-
-I have used Cucumber to make BDD, but it was my first time.. 
-So please be patient if you see not too good code in the test..
-
-Before runing the rails server in development, don't forget to start the Solr instance:
+Before runing the rails server in development, don't forget to start a Solr instance:
 
     bundle exec rake sunspot:solr:start 
 
-then you can start the server as usual.
 
-
-Capistrano instructions:
-------------------------
-
-This app already includes the Capfile and deploy.rb files needed for deploy.
-Please check this files, since there are some placeholders such the deploy directory, the :web, :app, :db roles, etc..
-To make it work in a real production server, you must to provide real values for this placeholders, 
-and take care to run gems related tasks (such Sunspot or Whenever) to run succesfully the app.
